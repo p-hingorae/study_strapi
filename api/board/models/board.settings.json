@@ -1,0 +1,19 @@
+{
+  "connection": "default",
+  "collectionName": "boards",
+  "info": {
+    "name": "board"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "contents": {
+      "type": "text"
+    }
+  }
+}

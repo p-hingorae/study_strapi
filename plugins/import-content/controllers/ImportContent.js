@@ -1,0 +1,77 @@
+'use strict';
+
+/**
+ * ImportContent.js controller
+ *
+ * @description: A set of functions called "actions" of the `import-content` plugin.
+ */
+
+module.exports = {  
+  preAnalyzeImportFile: async ctx => {
+    const services = strapi.plugins["import-content"].services;
+    try {
+      const data = await services["importcontent"].preAnalyzeImportFile(ctx);
+      ctx.send(data);
+    } catch (error) {
+      console.log(error);
+      ctx.response.status = 406;
+      ctx.response.message = "could not parse: " + error;
+    }
+  },
+  create: async ctx => {  
+    const services = strapi.plugins["import-content"].services;
+    const importConfig = ctx.request.body;
+    importConfig.ongoing = true;
+    const record = await strapi
+      .query("importconfig", "import-content")
+      .create(importConfig);
+    console.log("create", record);
+    await services["importcontent"].importItems(record, ctx);
+    ctx.send(record);
+  },
+  index: async ctx => {  
+    const entries = await strapi.query("importconfig", "import-content").find();
+    const withCounts = entries.map(entry => ({
+      ...entry,
+      importedCount: entry.importeditems.length,
+      importeditems: []
+    }));
+    const withName = withCounts.map(entry =>
+      ({
+        ...entry,
+        contentType: strapi.contentTypes[entry.contentType].info.name || 
+        entry.contentType
+      }))
+    ctx.send(withName);
+  },
+  delete: async ctx => {
+    const importId = ctx.params.importId;
+    const res = await strapi.query("importconfig", "import-content").delete({
+      id: importId
+    });
+    if (res && res.id) {
+      ctx.send(res.id);
+    } else {
+      ctx.response.status = 400;
+      ctx.response.message = "could not delete: the provided id might be wrong";
+    }
+  },
+  count: async ctx => {
+    const entries = await strapi.query("importconfig", "import-content").count(ctx.request.query)
+    ctx.send(entries)
+  },
+  findOne: async ctx => {
+    const entries = await strapi.query("importconfig", "import-content").findOne({id: ctx.params.importId})
+    ctx.send(entries)
+  },
+  find: async ctx => {
+    const entries = await strapi.query("importconfig", "import-content").find(ctx.request.query)
+    ctx.send(entries)
+  },
+  delete: async ctx => {
+    return strapi.query("importconfig", "import-content").delete({id: ctx.params.importId})
+  },
+  update: async ctx => {
+    return strapi.query("importconfig", "import-content").update({id: ctx.params.importId}, ctx.request.body)
+  }
+};

@@ -1,0 +1,48 @@
+{
+  "name": "import-content-tutorial",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi",
+    "debug": "node --inspect-brk ./node_modules/strapi/bin/strapi develop --watch-admin"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "axios": "^0.19.1",
+    "content-type-parser": "1.0.2",
+    "csv-parse": "4.8.2",
+    "get-urls": "9.2.0",
+    "knex": "<0.20.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "mysql": "latest",
+    "request": "^2.88.0",
+    "rss-parser": "3.7.3",
+    "simple-statistics": "7.0.7",
+    "strapi": "3.0.0-beta.18.4",
+    "strapi-admin": "3.0.0-beta.18.4",
+    "strapi-connector-bookshelf": "3.0.0-beta.18.4",
+    "strapi-plugin-content-manager": "3.0.0-beta.18.4",
+    "strapi-plugin-content-type-builder": "3.0.0-beta.18.4",
+    "strapi-plugin-email": "3.0.0-beta.18.4",
+    "strapi-plugin-upload": "3.0.0-beta.18.4",
+    "strapi-plugin-users-permissions": "3.0.0-beta.18.4",
+    "strapi-utils": "3.0.0-beta.18.4",
+    "striptags": "3.1.1"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "7bdeddc1-e0fb-410c-9419-03093a4db3d1"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
