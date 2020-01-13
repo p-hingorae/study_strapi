@@ -8,6 +8,7 @@
 
 module.exports = {  
   preAnalyzeImportFile: async ctx => {
+    console.log(ctx);
     const services = strapi.plugins["import-content"].services;
     try {
       const data = await services["importcontent"].preAnalyzeImportFile(ctx);
@@ -73,5 +74,15 @@ module.exports = {
   },
   update: async ctx => {
     return strapi.query("importconfig", "import-content").update({id: ctx.params.importId}, ctx.request.body)
+  },
+  undo: async ctx => {  
+    const services = strapi.plugins["import-content"].services;
+    const importId = ctx.params.importId;
+    const importConfig = await strapi
+      .query("importconfig", "import-content")
+      .findOne({ id: importId });
+    console.log("undo", importId);
+    await services["importcontent"].undoItems(importConfig);
+    ctx.send(importConfig);
   }
 };

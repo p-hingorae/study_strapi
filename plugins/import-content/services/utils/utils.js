@@ -44,6 +44,8 @@ const resolveDataFromRequest = async ctx => {
 const getItemsFromData = ({ dataType, body, options }) =>  
   new Promise(async (resolve, reject) => {
     const parsedContentType = contentTypeParser(dataType);
+
+    console.log(parsedContentType);
     if (parsedContentType.isXML()) {
       const parser = new RssParser();
       const feed = await parser.parseString(body);

@@ -3,6 +3,11 @@
  * * @description: A set of functions similar to controller's actions to avoid code duplication. */
 const { resolveDataFromRequest, getItemsFromData } = require("./utils/utils");  
 const analyzer = require("./utils/analyzer");  
+const _ = require("lodash");  
+const importFields = require("./utils/importFields");  
+const importMediaFiles = require("./utils/importMediaFiles");
+
+const import_queue = {};
 
 const importNextItem = async importConfig => {  
   const sourceItem = import_queue[importConfig.id].shift();
@@ -105,7 +110,7 @@ module.exports = {
       } catch (error) {
         reject(error);
       }
-      resolve({
+      resolve({ ////// ???? resolve 되면 어떻게 되나??
         status: "import started",
         importConfigId: importConfig.id
       });

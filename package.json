@@ -8,7 +8,7 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "debug": "node --inspect-brk ./node_modules/strapi/bin/strapi develop --watch-admin"
+    "debug": "node --inspect-brk ./node_modules/strapi/bin/strapi develop"
   },
   "devDependencies": {},
   "dependencies": {
